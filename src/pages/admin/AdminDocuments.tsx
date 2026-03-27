@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import AdminLayout from '../../components/admin/AdminLayout'
 import { supabase } from '../../lib/supabase'
-import { Search, Plus, X, Save, Trash2, Edit, FileText, Lock, Globe, Users, Shield } from 'lucide-react'
+import { Search, Plus, X, Save, Trash2, Edit, FileText, Lock, Globe, Users, Shield, Upload, File } from 'lucide-react'
 
 const ACCESS_LEVELS = [
   { value: 'public', label: 'Public', icon: <Globe size={13} />, color: 'bg-green-100 text-green-700' },
@@ -17,11 +17,15 @@ const defaultForm = {
   category_id: '',
   file_url: '',
   file_name: '',
+  file_size: 0,
+  file_type: '',
   access_level: 'members',
   version: '',
   effective_date: '',
   is_published: false,
 }
+
+const BUCKET = 'fellowship-documents'
 
 export default function AdminDocuments() {
   const [documents, setDocuments] = useState<any[]>([])
@@ -36,7 +40,10 @@ export default function AdminDocuments() {
   const [form, setForm] = useState<any>(defaultForm)
   const [newCatName, setNewCatName] = useState('')
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState('')
   const [error, setError] = useState('')
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => { load() }, [])
 
@@ -59,10 +66,56 @@ export default function AdminDocuments() {
     return matchSearch && matchCat && matchAccess
   })
 
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploading(true)
+    setUploadProgress('Uploading file...')
+    setError('')
+
+    try {
+      const ext = file.name.split('.').pop()
+      const timestamp = Date.now()
+      const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_')
+      const path = `documents/${timestamp}_${safeName}`
+
+      const { error: uploadError } = await supabase.storage
+        .from(BUCKET)
+        .upload(path, file, { cacheControl: '3600', upsert: false })
+
+      if (uploadError) {
+        setError(`Upload failed: ${uploadError.message}`)
+        setUploading(false)
+        setUploadProgress('')
+        return
+      }
+
+      const { data: urlData } = supabase.storage.from(BUCKET).getPublicUrl(path)
+
+      setForm((prev: any) => ({
+        ...prev,
+        file_url: urlData.publicUrl,
+        file_name: file.name,
+        file_size: file.size,
+        file_type: file.type || ext || '',
+        title: prev.title || file.name.replace(/\.[^.]+$/, '').replace(/[_-]/g, ' '),
+      }))
+
+      setUploadProgress('File uploaded successfully')
+      setTimeout(() => setUploadProgress(''), 3000)
+    } catch (err: any) {
+      setError(err.message)
+    } finally {
+      setUploading(false)
+    }
+  }
+
   const openCreate = () => {
     setEditing(null)
     setForm({ ...defaultForm, category_id: categories[0]?.id || '' })
     setError('')
+    setUploadProgress('')
     setShowModal(true)
   }
 
@@ -71,11 +124,13 @@ export default function AdminDocuments() {
     setForm({
       title: d.title, description: d.description || '',
       category_id: d.category_id || '', file_url: d.file_url || '',
-      file_name: d.file_name || '', access_level: d.access_level,
+      file_name: d.file_name || '', file_size: d.file_size || 0,
+      file_type: d.file_type || '', access_level: d.access_level,
       version: d.version || '', effective_date: d.effective_date || '',
       is_published: d.is_published,
     })
     setError('')
+    setUploadProgress('')
     setShowModal(true)
   }
 
@@ -118,8 +173,14 @@ export default function AdminDocuments() {
     load()
   }
 
-  const f = (k: string, v: any) => setForm((prev: any) => ({ ...prev, [k]: v }))
+  const formatFileSize = (bytes: number) => {
+    if (!bytes) return ''
+    if (bytes < 1024) return `${bytes} B`
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+  }
 
+  const f = (k: string, v: any) => setForm((prev: any) => ({ ...prev, [k]: v }))
   const getAccessLevel = (val: string) => ACCESS_LEVELS.find(a => a.value === val)
 
   return (
@@ -166,7 +227,7 @@ export default function AdminDocuments() {
                 <th className="table-header">Category</th>
                 <th className="table-header">Access</th>
                 <th className="table-header">Version</th>
-                <th className="table-header">Effective Date</th>
+                <th className="table-header">Size</th>
                 <th className="table-header">Published</th>
                 <th className="table-header">Actions</th>
               </tr>
@@ -186,14 +247,21 @@ export default function AdminDocuments() {
                 return (
                   <tr key={d.id} className="table-row">
                     <td className="table-cell">
-                      <div className="font-medium text-gray-900">{d.title}</div>
-                      {d.description && <div className="text-xs text-gray-400 font-body truncate max-w-xs">{d.description}</div>}
-                      {d.file_url && (
-                        <a href={d.file_url} target="_blank" rel="noopener noreferrer"
-                          className="text-xs text-crimson-600 hover:underline font-body">
-                          View file →
-                        </a>
-                      )}
+                      <div className="flex items-start gap-2">
+                        <File size={15} className="text-crimson-400 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <div className="font-medium text-gray-900">{d.title}</div>
+                          {d.file_name && (
+                            <div className="text-xs text-gray-400 font-body">{d.file_name}</div>
+                          )}
+                          {d.file_url && (
+                            <a href={d.file_url} target="_blank" rel="noopener noreferrer"
+                              className="text-xs text-crimson-600 hover:underline font-body">
+                              View / Download →
+                            </a>
+                          )}
+                        </div>
+                      </div>
                     </td>
                     <td className="table-cell text-gray-500 text-sm">{d.category?.name || '—'}</td>
                     <td className="table-cell">
@@ -204,9 +272,7 @@ export default function AdminDocuments() {
                       )}
                     </td>
                     <td className="table-cell text-gray-500 text-sm">{d.version || '—'}</td>
-                    <td className="table-cell text-gray-500 text-sm">
-                      {d.effective_date ? new Date(d.effective_date).toLocaleDateString() : '—'}
-                    </td>
+                    <td className="table-cell text-gray-400 text-xs">{formatFileSize(d.file_size)}</td>
                     <td className="table-cell">
                       <button onClick={() => togglePublished(d)}
                         className={`text-xs font-semibold px-2.5 py-1 rounded-full transition-colors ${
@@ -273,6 +339,60 @@ export default function AdminDocuments() {
               <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-gray-600"><X size={20} /></button>
             </div>
             <div className="p-6 space-y-4">
+
+              {/* File Upload Area */}
+              <div>
+                <label className="label">Upload File</label>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  className="hidden"
+                  accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt"
+                  onChange={handleFileUpload}
+                />
+                {form.file_url ? (
+                  <div className="border border-green-200 bg-green-50 rounded-lg p-4 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <File size={20} className="text-green-600" />
+                      <div>
+                        <div className="text-sm font-medium text-gray-900 font-body">{form.file_name}</div>
+                        <div className="text-xs text-gray-500 font-body">{formatFileSize(form.file_size)}</div>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => fileInputRef.current?.click()}
+                      className="text-xs text-crimson-600 hover:text-crimson-800 font-body font-medium"
+                    >
+                      Replace
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploading}
+                    className="w-full border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-crimson-400 hover:bg-crimson-50 transition-colors group"
+                  >
+                    {uploading ? (
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="w-6 h-6 border-2 border-crimson-600 border-t-transparent rounded-full animate-spin" />
+                        <span className="text-sm text-gray-500 font-body">Uploading...</span>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center gap-2">
+                        <Upload size={24} className="text-gray-400 group-hover:text-crimson-500 transition-colors" />
+                        <span className="text-sm font-medium text-gray-600 font-body group-hover:text-crimson-700">
+                          Click to upload a file
+                        </span>
+                        <span className="text-xs text-gray-400 font-body">PDF, Word, Excel, PowerPoint supported</span>
+                      </div>
+                    )}
+                  </button>
+                )}
+                {uploadProgress && (
+                  <p className="text-sm text-green-600 font-body mt-2">{uploadProgress}</p>
+                )}
+              </div>
+
               <div>
                 <label className="label">Document Title *</label>
                 <input className="input" value={form.title}
@@ -300,21 +420,6 @@ export default function AdminDocuments() {
                   </select>
                 </div>
               </div>
-              <div>
-                <label className="label">File URL</label>
-                <input className="input" value={form.file_url}
-                  onChange={e => f('file_url', e.target.value)}
-                  placeholder="https://... (paste a direct link to the file)" />
-                <p className="text-xs text-gray-400 font-body mt-1">
-                  Upload your file to Supabase Storage or Google Drive and paste the link here.
-                </p>
-              </div>
-              <div>
-                <label className="label">File Name</label>
-                <input className="input" value={form.file_name}
-                  onChange={e => f('file_name', e.target.value)}
-                  placeholder="kdcmf-constitution-2024.pdf" />
-              </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="label">Version</label>
@@ -339,7 +444,7 @@ export default function AdminDocuments() {
             <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-100">
               <button onClick={() => setShowModal(false)}
                 className="btn-ghost text-gray-600 border border-gray-300">Cancel</button>
-              <button onClick={handleSave} className="btn-primary flex items-center gap-2" disabled={saving}>
+              <button onClick={handleSave} className="btn-primary flex items-center gap-2" disabled={saving || uploading}>
                 {saving
                   ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   : <Save size={15} />}
