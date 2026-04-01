@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { KDCMF_SEAL } from '../../lib/logos'
 
 export default function PublicFooter() {
   return (
@@ -9,7 +10,7 @@ export default function PublicFooter() {
           {/* Brand */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-gold-500 rounded-full flex items-center justify-center font-display font-bold text-crimson-900 text-sm">KD</div>
+              <img src={KDCMF_SEAL} alt="KDCMF Seal" className="w-12 h-12 rounded-full object-cover flex-shrink-0" />
               <div>
                 <div className="font-display font-bold text-white text-sm">Kingdom Dominion</div>
                 <div className="text-gold-400 text-xs">Covenant Ministries Fellowship</div>

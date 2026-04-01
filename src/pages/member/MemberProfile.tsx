@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useMemberAuth } from '../../lib/auth'
+import { KDCMF_SEAL } from '../../lib/logos'
 import { supabase } from '../../lib/supabase'
 import { Save, CheckCircle, ArrowLeft } from 'lucide-react'
 
@@ -36,7 +37,7 @@ export default function MemberProfile() {
     <div className="min-h-screen bg-gray-50">
       <div className="bg-crimson-900 text-white px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-gold-500 rounded-full flex items-center justify-center font-display font-bold text-crimson-900 text-xs">KD</div>
+          <img src={KDCMF_SEAL} alt="KDCMF" className="w-8 h-8 rounded-full object-cover border border-gold-400/40" />
           <span className="font-display font-bold text-sm">KDCMF Member Portal</span>
         </div>
         <button onClick={logout} className="text-xs text-gray-400 hover:text-white font-body">Sign Out</button>

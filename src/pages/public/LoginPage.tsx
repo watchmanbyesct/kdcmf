@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useMemberAuth } from '../../lib/auth'
+import { KDCMF_SEAL } from '../../lib/logos'
 import { Eye, EyeOff, ArrowRight } from 'lucide-react'
 import PublicLayout from '../../components/public/PublicLayout'
 
@@ -28,9 +29,7 @@ export default function LoginPage() {
       <div className="min-h-[80vh] flex items-center justify-center bg-gray-50 py-12 px-4">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-crimson-gradient rounded-full flex items-center justify-center mx-auto mb-4 shadow">
-              <span className="font-display font-bold text-white text-lg">KD</span>
-            </div>
+            <img src={KDCMF_SEAL} alt="KDCMF" className="w-16 h-16 rounded-full object-cover mx-auto mb-4 shadow border-2 border-gold-400" />
             <h1 className="font-display text-2xl font-bold text-crimson-900 mb-1">Member Sign In</h1>
             <p className="text-gray-500 font-body text-sm">Access your KDCMF member portal</p>
           </div>

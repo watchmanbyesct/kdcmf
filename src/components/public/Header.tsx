@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, ChevronDown } from 'lucide-react'
+import { KDCMF_SEAL } from '../../lib/logos'
 
 const navLinks = [
   { label: 'About', href: '/about' },
@@ -37,9 +38,11 @@ export default function PublicHeader() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-gold-500 rounded-full flex items-center justify-center font-display font-bold text-crimson-900 text-sm group-hover:bg-gold-400 transition-colors">
-              KD
-            </div>
+            <img
+              src={KDCMF_SEAL}
+              alt="KDCMF Seal"
+              className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+            />
             <div className="hidden sm:block">
               <div className="font-display font-bold text-white text-sm leading-tight">Kingdom Dominion</div>
               <div className="text-gold-400 text-xs font-body">Covenant Ministries Fellowship</div>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAdminAuth } from '../../lib/auth'
+import { KDCMF_SEAL } from '../../lib/logos'
 import {
   LayoutDashboard, Users, Building2, Calendar, Star,
   GraduationCap, FileText, Newspaper,
@@ -59,7 +60,7 @@ export default function AdminSidebar() {
       {/* Logo */}
       <div className="p-4 border-b border-white/10">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-gold-500 rounded-full flex items-center justify-center font-display font-bold text-crimson-900 text-xs flex-shrink-0">KD</div>
+          <img src={KDCMF_SEAL} alt="KDCMF" className="w-9 h-9 rounded-full object-cover flex-shrink-0 border border-gold-400/40" />
           {!collapsed && (
             <div>
               <div className="font-display font-bold text-white text-sm leading-tight">KDCMF</div>
@@ -144,7 +145,7 @@ export default function AdminSidebar() {
       {/* Mobile Header */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-crimson-950 border-b border-white/10 px-4 h-14 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-gold-500 rounded-full flex items-center justify-center font-display font-bold text-crimson-900 text-xs">KD</div>
+          <img src={KDCMF_SEAL} alt="KDCMF" className="w-7 h-7 rounded-full object-cover border border-gold-400/40" />
           <span className="font-display text-white font-bold text-sm">KDCMF Admin</span>
         </div>
         <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white p-1">

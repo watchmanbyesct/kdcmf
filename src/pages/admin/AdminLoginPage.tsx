@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAdminAuth } from '../../lib/auth'
-import { Eye, EyeOff, ArrowRight, Shield } from 'lucide-react'
+import { Eye, EyeOff, ArrowRight } from 'lucide-react'
+import { KDCMF_SEAL } from '../../lib/logos'
 
 export default function AdminLoginPage() {
   const { login, checkEmail } = useAdminAuth()
@@ -52,9 +53,7 @@ export default function AdminLoginPage() {
       <div className="relative w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-            <Shield size={28} className="text-crimson-900" />
-          </div>
+          <img src={KDCMF_SEAL} alt="KDCMF Seal" className="w-20 h-20 rounded-full object-cover mx-auto mb-4 shadow-lg border-2 border-gold-400" />
           <h1 className="font-display text-2xl font-bold text-white mb-1">KDCMF Admin</h1>
           <p className="text-gray-400 font-body text-sm">Restricted access. Authorized personnel only.</p>
         </div>

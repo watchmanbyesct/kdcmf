@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useMemberAuth } from '../../lib/auth'
+import { KDCMF_SEAL } from '../../lib/logos'
 import { supabase } from '../../lib/supabase'
 import { BookOpen, Calendar, FileText, User, LogOut, GraduationCap, Bell } from 'lucide-react'
 
@@ -41,7 +42,9 @@ export default function MemberDashboard() {
       <div className="bg-crimson-900 text-white shadow-lg">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-gold-500 rounded-full flex items-center justify-center font-display font-bold text-crimson-900 text-sm">KD</div>
+            <div className="w-9 h-9 rounded-full overflow-hidden flex-shrink-0 border border-gold-400/40">
+                <img src={KDCMF_SEAL} alt="KDCMF" className="w-full h-full object-cover" />
+              </div>
             <div>
               <div className="font-display font-bold text-white text-sm leading-tight">KDCMF Member Portal</div>
               <div className="text-gold-400 text-xs font-body">Kingdom Dominion Covenant Ministries Fellowship</div>
