@@ -3,6 +3,44 @@ import PublicLayout from '../../components/public/PublicLayout'
 import { KDCMF_SEAL } from '../../lib/logos'
 import { Shield, BookOpen, Users, Globe } from 'lucide-react'
 
+const TIMELINE = [
+  {
+    year: '2006',
+    title: 'The Fellowship is Founded',
+    desc: 'Kingdom Dominion Covenant Ministries Fellowship was founded through the vision of Bishop Gerald West-Phipps. Bishop Benjamin G. Finney was appointed as the first Presiding Bishop due to his seniority and over 50 years of pastoral experience. Bishop Rufus McGee was named 1st Assistant Presiding Bishop, while Bishop West-Phipps served as 2nd Presiding Bishop. The first KDCMF Conference was held that summer, with over 200 people in attendance.'
+  },
+  {
+    year: '2007',
+    title: 'Early Transition',
+    desc: 'Bishop West-Phipps and Bishop Singleton withdrew their membership, and the fellowship experienced a period of reduced activity. Several years passed with limited organizational movement as the vision awaited its season of restoration.'
+  },
+  {
+    year: '2012',
+    title: 'Reorganization and Renewal',
+    desc: 'Seeing the fellowship lying dormant, Bishop West-Phipps began to slowly reorganize. Events were held in the fellowship\'s name, and Bishop Jerome Livingston was consecrated to the office of Bishop and appointed as 1st Assistant Presiding Bishop.'
+  },
+  {
+    year: '2016',
+    title: 'Formal Restructuring',
+    desc: 'Bishop William Compton officially elevated Bishop Gerald West-Phipps as the Presiding Bishop of KDCMF. Bishop West-Phipps began appointing executive, national, and other officers to assist in growing the fellowship. New bishops were consecrated including Bishop Jeremy L. Butler, Bishop Carrie Cox, and Bishop Owens F. Shepard. The fellowship experienced renewed growth and structure.'
+  },
+  {
+    year: '2018',
+    title: 'Continued Growth',
+    desc: 'New leadership additions strengthened the fellowship. Rev. Dr. Jon McReynolds was consecrated as 2nd Presiding Bishop. Mother Joyce Rufus was named Mother of the Fellowship. Libby Swoope became Sacred Arts Coordinator. The fellowship continued expanding its reach and membership.'
+  },
+  {
+    year: '2019',
+    title: 'Legal Incorporation',
+    desc: 'Kingdom Dominion Covenant Ministries Fellowship Inc. was formally incorporated in the State of New York under Article 10 of the Religious Corporation Law on October 25, 2019, with its principal office in Rochester, New York.'
+  },
+  {
+    year: 'Today',
+    title: 'Under New Leadership',
+    desc: 'Under the leadership of Bishop Owens F. Shepard as Presiding Bishop, KDCMF continues to grow as a Spirit-filled covenant body united in purpose. The fellowship has launched the Academy of Episcopal Studies, the Kingdom Dominion Institute, and a full suite of auxiliaries to serve every member of the body.'
+  },
+]
+
 export default function AboutPage() {
   return (
     <PublicLayout>
@@ -26,7 +64,7 @@ export default function AboutPage() {
               <div className="gold-bar w-12 mb-4" style={{ height: '3px' }} />
               <h2 className="section-title mb-4">Who We Are</h2>
               <p className="text-gray-600 font-body leading-relaxed mb-4">
-                Kingdom Dominion Covenant Ministries Fellowship Inc. (KDCMF) is a nonprofit religious corporation incorporated in the State of New York under Article 10 of the Religious Corporation Law, with its original incorporation dated October 25, 2019.
+                Kingdom Dominion Covenant Ministries Fellowship Inc. (KDCMF) is a nonprofit religious corporation incorporated in the State of New York, with its principal office in Rochester, New York. The Fellowship was founded in 2006 and formally incorporated on October 25, 2019.
               </p>
               <p className="text-gray-600 font-body leading-relaxed mb-4">
                 We are a Spirit-filled covenant body of churches, pastors, leaders, and members united in purpose to advance the Kingdom of God. Founded on the strength of prayer, the sacrifice of faithful leaders, and the vision of covenant fellowship, KDCMF empowers every believer to serve with excellence and integrity.
@@ -36,7 +74,7 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="flex justify-center">
-              <img src={KDCMF_SEAL} alt="KDCMF Seal" className="w-64 h-64 object-contain drop-shadow-xl" />
+              <img src={KDCMF_SEAL} alt="KDCMF Seal" className="w-96 h-96 object-contain drop-shadow-xl" />
             </div>
           </div>
         </div>
@@ -83,8 +121,49 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* What We Do */}
+      {/* Our History */}
       <section className="py-16 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <div className="gold-bar mx-auto w-24 mb-6" style={{ height: '3px' }} />
+            <h2 className="section-title mb-3">Our History</h2>
+            <p className="section-subtitle max-w-2xl mx-auto">
+              From a vision in 2006 to a growing covenant fellowship today — the story of Kingdom Dominion Covenant Ministries Fellowship.
+            </p>
+          </div>
+
+          <div className="relative">
+            {/* Timeline line */}
+            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-crimson-200 hidden md:block" />
+
+            <div className="space-y-8">
+              {TIMELINE.map((item) => (
+                <div key={item.year} className="relative flex gap-6 md:gap-8">
+                  {/* Year bubble */}
+                  <div className="flex-shrink-0 w-16 flex flex-col items-center">
+                    <div className={`w-16 h-16 rounded-full flex items-center justify-center font-display font-bold text-xs text-center leading-tight z-10 shadow-md ${
+                      item.year === 'Today'
+                        ? 'bg-crimson-gradient text-white'
+                        : 'bg-white border-2 border-crimson-300 text-crimson-800'
+                    }`}>
+                      {item.year}
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className={`flex-1 card p-6 mb-0 ${item.year === 'Today' ? 'border-crimson-200 bg-crimson-50' : ''}`}>
+                    <h3 className="font-display text-lg font-bold text-crimson-900 mb-2">{item.title}</h3>
+                    <p className="text-gray-600 font-body text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What We Do */}
+      <section className="py-16 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
             <h2 className="section-title mb-3">What We Do</h2>
@@ -120,7 +199,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Established */}
+      {/* CTA */}
       <section className="py-16 bg-crimson-gradient relative overflow-hidden">
         <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: 'repeating-linear-gradient(45deg, #c9a84c 0, #c9a84c 1px, transparent 0, transparent 50%)',

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PublicLayout from '../../components/public/PublicLayout'
 import { supabase } from '../../lib/supabase'
-import { BookOpen, Clock, Users } from 'lucide-react'
+import { BookOpen, Users } from 'lucide-react'
 import { KDI_LOGO } from '../../lib/logos'
 
 const CERTIFICATES = [
@@ -27,10 +27,6 @@ export default function KdiPage() {
       .then(({ data }) => { setCourses(data || []); setLoading(false) })
   }, [])
 
-  const levelColor = (level: string) => {
-    const map: Record<string, string> = { beginner: 'bg-green-100 text-green-700', intermediate: 'bg-blue-100 text-blue-700', advanced: 'bg-purple-100 text-purple-700', certification: 'bg-yellow-100 text-yellow-700' }
-    return map[level] || 'bg-gray-100 text-gray-700'
-  }
 
   return (
     <PublicLayout>
@@ -49,7 +45,7 @@ export default function KdiPage() {
             </div>
             <div className="flex-shrink-0">
               <img src={KDI_LOGO} alt="Kingdom Dominion Institute"
-                className="w-40 h-40 object-contain drop-shadow-xl"
+                className="w-60 h-60 object-contain drop-shadow-xl"
                 onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
               />
             </div>
@@ -135,16 +131,6 @@ export default function KdiPage() {
                       {c.code && <div className="text-xs text-gray-400 font-body mb-1">{c.code}</div>}
                       <h3 className="font-display font-bold text-crimson-900 text-sm">{c.title}</h3>
                     </div>
-                    <span className={`badge text-xs capitalize ${levelColor(c.level)}`}>{c.level}</span>
-                  </div>
-                  {c.description && <p className="text-xs text-gray-500 font-body mt-1 mb-3 leading-relaxed">{c.description}</p>}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3 text-xs text-gray-400 font-body">
-                      {c.duration_hours && <span className="flex items-center gap-1"><Clock size={11} /> {c.duration_hours}h</span>}
-                    </div>
-                    <span className={`text-xs font-semibold font-body ${c.price > 0 ? 'text-crimson-700' : 'text-green-600'}`}>
-                      {c.price > 0 ? `$${c.price}` : 'Free'}
-                    </span>
                   </div>
                 </div>
               ))}

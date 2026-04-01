@@ -52,7 +52,7 @@ export default function AcademyPage() {
             </div>
             <div className="flex-shrink-0">
               <img src={AES_LOGO} alt="Academy of Episcopal Studies"
-                className="w-40 h-40 object-contain drop-shadow-xl"
+                className="w-60 h-60 object-contain drop-shadow-xl"
                 onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
               />
             </div>
@@ -149,9 +149,6 @@ export default function AcademyPage() {
                       {course.code && <div className="text-xs text-gray-400 font-body mb-1">{course.code}</div>}
                       <h3 className="font-display font-bold text-crimson-900">{course.title}</h3>
                     </div>
-                    <span className={`badge text-xs capitalize ${course.price > 0 ? 'badge-crimson' : 'badge-green'}`}>
-                      {course.price > 0 ? `$${course.price}` : 'Free'}
-                    </span>
                   </div>
                   {course.description && <p className="text-sm text-gray-500 font-body mt-2 mb-3 leading-relaxed">{course.description}</p>}
                   <div className="flex items-center gap-3 text-xs text-gray-400 font-body">

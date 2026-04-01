@@ -39,7 +39,7 @@ export default function MemberCourses() {
     const map: Record<string, string> = {
       introductory: 'bg-green-100 text-green-700', beginner: 'bg-green-100 text-green-700',
       intermediate: 'bg-blue-100 text-blue-700', advanced: 'bg-purple-100 text-purple-700',
-      certification: 'bg-gold-100 text-yellow-700',
+      certification: 'bg-yellow-100 text-yellow-700',
     }
     return map[level] || 'badge-gray'
   }
@@ -48,7 +48,9 @@ export default function MemberCourses() {
     <div className="min-h-screen bg-gray-50">
       <div className="bg-crimson-900 text-white px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <img src={KDCMF_SEAL} alt="KDCMF" className="w-8 h-8 rounded-full object-cover border border-gold-400/40" />
+          <div className="w-8 h-8 rounded-full overflow-hidden border border-gold-400/40 flex-shrink-0">
+            <img src={KDCMF_SEAL} alt="KDCMF" className="w-full h-full object-cover" />
+          </div>
           <span className="font-display font-bold text-sm">KDCMF Member Portal</span>
         </div>
         <button onClick={logout} className="text-xs text-gray-400 hover:text-white font-body">Sign Out</button>
@@ -58,111 +60,89 @@ export default function MemberCourses() {
         <Link to="/portal" className="flex items-center gap-1.5 text-sm text-crimson-600 font-body font-medium mb-6 hover:underline">
           <ArrowLeft size={14} /> Back to Dashboard
         </Link>
-
         <h1 className="font-display text-2xl font-bold text-crimson-900 mb-8">My Courses</h1>
-
         {loading ? (
-          <div className="flex items-center justify-center h-32"><div className="w-8 h-8 border-4 border-crimson-700 border-t-transparent rounded-full animate-spin" /></div>
+          <div className="flex items-center justify-center h-32">
+            <div className="w-8 h-8 border-4 border-crimson-700 border-t-transparent rounded-full animate-spin" />
+          </div>
         ) : (
           <div className="space-y-8">
-            {/* AES Enrolled */}
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <GraduationCap size={20} className="text-crimson-600" />
                 <h2 className="font-display text-lg font-bold text-crimson-900">Academy of Episcopal Studies</h2>
               </div>
               {aes.length === 0 ? (
-                <div className="card p-6 text-center text-gray-400 font-body text-sm">
-                  No AES courses enrolled. Browse available courses below.
-                </div>
+                <div className="card p-6 text-center text-gray-400 font-body text-sm">No AES courses enrolled.</div>
               ) : (
                 <div className="grid sm:grid-cols-2 gap-4">
                   {aes.map(e => (
                     <div key={e.id} className="card p-5">
                       <div className="flex items-start justify-between mb-2">
-                        <h3 className="font-display font-semibold text-gray-900 text-sm leading-tight">{e.course?.title}</h3>
+                        <h3 className="font-display font-semibold text-gray-900 text-sm">{e.course?.title}</h3>
                         <span className={`badge capitalize ml-2 flex-shrink-0 ${levelColor(e.course?.level)}`}>{e.course?.level}</span>
                       </div>
-                      {e.course?.code && <div className="text-xs text-gray-400 font-body mb-2">{e.course.code}</div>}
+                      {e.course?.code && <div className="text-xs text-gray-400 mb-2">{e.course.code}</div>}
                       <div className="flex items-center justify-between mt-3">
                         <span className={`badge capitalize ${e.status === 'completed' ? 'badge-green' : 'badge-gold'}`}>{e.status}</span>
-                        <span className="text-xs text-gray-400 font-body">{e.course?.duration_hours}h course</span>
+                        {e.course?.duration_hours && <span className="text-xs text-gray-400">{e.course.duration_hours}h</span>}
                       </div>
                     </div>
                   ))}
                 </div>
               )}
-
-              {/* Available AES */}
               {aesCourses.length > 0 && (
                 <div className="mt-4">
-                  <h3 className="text-sm font-semibold text-gray-600 font-body mb-3">Available Courses</h3>
+                  <h3 className="text-sm font-semibold text-gray-600 mb-3">Available Courses</h3>
                   <div className="grid sm:grid-cols-2 gap-3">
                     {aesCourses.map(c => (
                       <div key={c.id} className="card p-4 flex items-center justify-between">
                         <div>
-                          <div className="text-sm font-medium text-gray-900 font-body">{c.title}</div>
-                          <div className="flex items-center gap-2 mt-1">
-                            <span className={`badge capitalize ${levelColor(c.level)}`}>{c.level}</span>
-                            <span className="text-xs text-gray-400">{c.price > 0 ? `$${c.price}` : 'Free'}</span>
-                          </div>
+                          <div className="text-sm font-medium text-gray-900">{c.title}</div>
+                          <span className={`badge capitalize mt-1 ${levelColor(c.level)}`}>{c.level}</span>
                         </div>
-                        <button onClick={() => enroll(c.id, 'aes')}
-                          className="btn-outline text-xs py-1.5 px-3 flex-shrink-0 ml-3">
-                          Enroll
-                        </button>
+                        <button onClick={() => enroll(c.id, 'aes')} className="btn-outline text-xs py-1.5 px-3 flex-shrink-0 ml-3">Enroll</button>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
             </div>
-
-            {/* KDI Enrolled */}
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <BookOpen size={20} className="text-crimson-600" />
                 <h2 className="font-display text-lg font-bold text-crimson-900">Kingdom Dominion Institute</h2>
               </div>
               {kdi.length === 0 ? (
-                <div className="card p-6 text-center text-gray-400 font-body text-sm">
-                  No KDI courses enrolled. Browse available courses below.
-                </div>
+                <div className="card p-6 text-center text-gray-400 font-body text-sm">No KDI courses enrolled.</div>
               ) : (
                 <div className="grid sm:grid-cols-2 gap-4">
                   {kdi.map(e => (
                     <div key={e.id} className="card p-5">
                       <div className="flex items-start justify-between mb-2">
-                        <h3 className="font-display font-semibold text-gray-900 text-sm leading-tight">{e.course?.title}</h3>
+                        <h3 className="font-display font-semibold text-gray-900 text-sm">{e.course?.title}</h3>
                         <span className={`badge capitalize ml-2 flex-shrink-0 ${levelColor(e.course?.level)}`}>{e.course?.level}</span>
                       </div>
-                      {e.course?.code && <div className="text-xs text-gray-400 font-body mb-2">{e.course.code}</div>}
+                      {e.course?.code && <div className="text-xs text-gray-400 mb-2">{e.course.code}</div>}
                       <div className="flex items-center justify-between mt-3">
                         <span className={`badge capitalize ${e.status === 'completed' ? 'badge-green' : 'badge-gold'}`}>{e.status}</span>
-                        <span className="text-xs text-gray-400 font-body">{e.course?.duration_hours}h course</span>
+                        {e.course?.duration_hours && <span className="text-xs text-gray-400">{e.course.duration_hours}h</span>}
                       </div>
                     </div>
                   ))}
                 </div>
               )}
-
               {kdiCourses.length > 0 && (
                 <div className="mt-4">
-                  <h3 className="text-sm font-semibold text-gray-600 font-body mb-3">Available Courses</h3>
+                  <h3 className="text-sm font-semibold text-gray-600 mb-3">Available Courses</h3>
                   <div className="grid sm:grid-cols-2 gap-3">
                     {kdiCourses.map(c => (
                       <div key={c.id} className="card p-4 flex items-center justify-between">
                         <div>
-                          <div className="text-sm font-medium text-gray-900 font-body">{c.title}</div>
-                          <div className="flex items-center gap-2 mt-1">
-                            <span className={`badge capitalize ${levelColor(c.level)}`}>{c.level}</span>
-                            <span className="text-xs text-gray-400">{c.price > 0 ? `$${c.price}` : 'Free'}</span>
-                          </div>
+                          <div className="text-sm font-medium text-gray-900">{c.title}</div>
+                          <span className={`badge capitalize mt-1 ${levelColor(c.level)}`}>{c.level}</span>
                         </div>
-                        <button onClick={() => enroll(c.id, 'kdi')}
-                          className="btn-outline text-xs py-1.5 px-3 flex-shrink-0 ml-3">
-                          Enroll
-                        </button>
+                        <button onClick={() => enroll(c.id, 'kdi')} className="btn-outline text-xs py-1.5 px-3 flex-shrink-0 ml-3">Enroll</button>
                       </div>
                     ))}
                   </div>
