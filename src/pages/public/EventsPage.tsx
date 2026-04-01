@@ -3,6 +3,7 @@ import PublicLayout from '../../components/public/PublicLayout'
 import { supabase } from '../../lib/supabase'
 import { Calendar, MapPin, Video, ChevronRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { SAVE_THE_DATE_2026 } from '../../lib/logos'
 
 export default function EventsPage() {
   const [events, setEvents] = useState<any[]>([])
@@ -31,6 +32,27 @@ export default function EventsPage() {
             Convocations, conferences, and fellowship gatherings that strengthen the Body of Christ.
           </p>
           <div className="gold-bar mx-auto w-24 mt-6" />
+        </div>
+      </section>
+
+      {/* Save the Date Feature Banner */}
+      <section className="py-10 bg-crimson-950">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-4">
+            <span className="badge bg-gold-500 text-crimson-950 font-bold text-xs uppercase tracking-wider px-3 py-1">
+              Upcoming Event
+            </span>
+          </div>
+          <div className="rounded-2xl overflow-hidden shadow-2xl border border-gold-400/40">
+            <img
+              src={SAVE_THE_DATE_2026}
+              alt="Save the Date — KDCMF Convocation 2026"
+              className="w-full h-auto block"
+            />
+          </div>
+          <div className="text-center mt-5">
+            <Link to="/login" className="btn-gold px-8 py-3">Register Now</Link>
+          </div>
         </div>
       </section>
 

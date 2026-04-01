@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
 import PublicLayout from '../../components/public/PublicLayout'
+import SaveTheDatePopup from '../../components/public/SaveTheDatePopup'
 import { Shield, BookOpen, GraduationCap, Users, Calendar, ChevronRight } from 'lucide-react'
 
 export default function HomePage() {
   return (
     <PublicLayout>
+      <SaveTheDatePopup />
       {/* Hero */}
       <section className="relative bg-crimson-gradient min-h-[90vh] flex items-center overflow-hidden">
         {/* Decorative pattern */}
