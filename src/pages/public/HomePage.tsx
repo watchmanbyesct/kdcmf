@@ -162,7 +162,7 @@ export default function HomePage() {
         }} />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <Calendar size={40} className="text-gold-400 mx-auto mb-4" />
-          <h2 className="font-display text-4xl font-bold text-white mb-4">Annual Summit & Events</h2>
+          <h2 className="font-display text-4xl font-bold text-white mb-4">Annual Convocation & Events</h2>
           <p className="text-gray-200 font-body text-lg mb-8 max-w-xl mx-auto">
             Join us for transformative fellowship, dynamic worship, and powerful teaching at our annual conferences and events.
           </p>

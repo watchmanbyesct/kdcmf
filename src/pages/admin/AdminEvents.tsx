@@ -7,7 +7,7 @@ const EVENT_TYPES = [
   { value: 'convocation', label: 'Annual Convocation' },
   { value: 'conference', label: 'Conference' },
   { value: 'workshop', label: 'Workshop' },
-  { value: 'summit', label: 'Summit' },
+  { value: 'summit', label: 'Convocation' },
   { value: 'training', label: 'Training' },
   { value: 'auxiliary', label: 'Auxiliary Event' },
   { value: 'general', label: 'General' },

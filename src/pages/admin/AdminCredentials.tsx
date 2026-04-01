@@ -2,7 +2,7 @@ import AdminLayout from '../../components/admin/AdminLayout'
 
 export default function AdminCredentials() {
   const titles: Record<string, {title: string, sub: string}> = {
-    AdminEvents: { title: 'Events', sub: 'Manage summits, conferences, and fellowship events' },
+    AdminEvents: { title: 'Events', sub: 'Manage convocations, conferences, and fellowship events' },
     AdminAuxiliaries: { title: 'Auxiliaries', sub: 'Manage women, men, and youth ministry pages' },
     AdminAesCourses: { title: 'Academy of Episcopal Studies', sub: 'Courses, lessons, and enrollments' },
     AdminKdiCourses: { title: 'Kingdom Dominion Institute', sub: 'Courses, lessons, and enrollments' },
