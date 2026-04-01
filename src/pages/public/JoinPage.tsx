@@ -76,7 +76,7 @@ export default function JoinPage() {
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
-  const [billing, setBilling] = useState<'monthly' | 'annually'>('annually')
+  const [billing] = useState<'monthly' | 'annually'>('annually')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -139,25 +139,7 @@ Message: ${form.message}
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
             <h2 className="section-title mb-4">Membership Plans</h2>
-            {/* Billing toggle */}
-            <div className="inline-flex items-center bg-gray-100 rounded-full p-1">
-              <button
-                onClick={() => setBilling('monthly')}
-                className={`px-5 py-2 rounded-full text-sm font-body font-semibold transition-all ${
-                  billing === 'monthly' ? 'bg-crimson-800 text-white' : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                Monthly
-              </button>
-              <button
-                onClick={() => setBilling('annually')}
-                className={`px-5 py-2 rounded-full text-sm font-body font-semibold transition-all ${
-                  billing === 'annually' ? 'bg-crimson-800 text-white' : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                Annually <span className="text-xs text-gold-600 font-semibold ml-1">Save 17%</span>
-              </button>
-            </div>
+            <p className="text-gray-500 font-body">Contact us for membership pricing information.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -180,14 +162,7 @@ Message: ${form.message}
                   <h3 className="font-display text-xl font-bold text-crimson-900 mb-1">{plan.name}</h3>
                   <p className="text-sm text-gray-500 font-body mb-4 leading-relaxed">{plan.description}</p>
 
-                  <div className="mb-5">
-                    <span className="font-display text-3xl font-bold text-crimson-900">
-                      ${billing === 'monthly' ? plan.price_monthly : plan.price_annually}
-                    </span>
-                    <span className="text-gray-400 font-body text-sm">
-                      /{billing === 'monthly' ? 'month' : 'year'}
-                    </span>
-                  </div>
+
 
                   <ul className="space-y-2 mb-6">
                     {plan.features.map(feature => (
