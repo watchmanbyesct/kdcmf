@@ -110,17 +110,15 @@ export default function EventsPage() {
                               </div>
                               {evt.description && <p className="text-gray-600 font-body text-sm leading-relaxed mb-4">{evt.description}</p>}
                               <div className="flex flex-wrap gap-3">
-                                {evt.registration_required && (
+                                {evt.status === 'registration_coming_soon' ? (
+                                  <span className="inline-flex items-center gap-2 text-sm font-body font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-4 py-2 rounded-full">
+                                    🔔 Registration Opening Soon
+                                  </span>
+                                ) : evt.registration_required ? (
                                   <Link to="/login" className="btn-primary text-sm py-2 px-5 flex items-center gap-1.5">
                                     Register Now <ChevronRight size={14} />
                                   </Link>
-                                )}
-                                {evt.price > 0 && (
-                                  <span className="text-sm text-gray-500 font-body self-center">Registration: ${evt.price}</span>
-                                )}
-                                {evt.price === 0 && evt.registration_required && (
-                                  <span className="text-sm text-green-600 font-body font-semibold self-center">Free Event</span>
-                                )}
+                                ) : null}
                               </div>
                             </div>
                           </div>

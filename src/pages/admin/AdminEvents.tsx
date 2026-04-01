@@ -147,6 +147,7 @@ export default function AdminEvents() {
   const statusColor = (status: string) => {
     const map: Record<string, string> = {
       upcoming: 'bg-blue-100 text-blue-700',
+      registration_coming_soon: 'bg-amber-100 text-amber-700',
       open: 'bg-green-100 text-green-700',
       closed: 'bg-gray-100 text-gray-600',
       completed: 'bg-purple-100 text-purple-700',
@@ -170,6 +171,8 @@ export default function AdminEvents() {
         <select className="input w-auto" value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
           <option value="all">All Events</option>
           <option value="upcoming">Upcoming</option>
+          <option value="registration_coming_soon">Registration Coming Soon</option>
+                    <option value="registration_coming_soon">Registration Coming Soon</option>
           <option value="open">Open Registration</option>
           <option value="completed">Completed</option>
           <option value="draft">Draft</option>
@@ -315,6 +318,8 @@ export default function AdminEvents() {
                       <select className="input" value={form.status} onChange={e => f('status', e.target.value)}>
                         <option value="draft">Draft</option>
                         <option value="upcoming">Upcoming</option>
+          <option value="registration_coming_soon">Registration Coming Soon</option>
+                    <option value="registration_coming_soon">Registration Coming Soon</option>
                         <option value="open">Open Registration</option>
                         <option value="closed">Registration Closed</option>
                         <option value="completed">Completed</option>
