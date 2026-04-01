@@ -1,54 +1,22 @@
 import { Link } from 'react-router-dom'
 import PublicLayout from '../../components/public/PublicLayout'
-import { KDCMF_SEAL } from '../../lib/logos'
+import { BISHOP_SEAL } from '../../lib/logos'
 import { Shield, BookOpen, Users, Globe } from 'lucide-react'
 
-const TIMELINE = [
-  {
-    year: '2006',
-    title: 'The Fellowship is Founded',
-    desc: 'Kingdom Dominion Covenant Ministries Fellowship was founded through the vision of Bishop Gerald West-Phipps. Bishop Benjamin G. Finney was appointed as the first Presiding Bishop due to his seniority and over 50 years of pastoral experience. Bishop Rufus McGee was named 1st Assistant Presiding Bishop, while Bishop West-Phipps served as 2nd Presiding Bishop. The first KDCMF Conference was held that summer, with over 200 people in attendance.'
-  },
-  {
-    year: '2007',
-    title: 'Early Transition',
-    desc: 'Bishop West-Phipps and Bishop Singleton withdrew their membership, and the fellowship experienced a period of reduced activity. Several years passed with limited organizational movement as the vision awaited its season of restoration.'
-  },
-  {
-    year: '2012',
-    title: 'Reorganization and Renewal',
-    desc: 'Seeing the fellowship lying dormant, Bishop West-Phipps began to slowly reorganize. Events were held in the fellowship\'s name, and Bishop Jerome Livingston was consecrated to the office of Bishop and appointed as 1st Assistant Presiding Bishop.'
-  },
-  {
-    year: '2016',
-    title: 'Formal Restructuring',
-    desc: 'Bishop William Compton officially elevated Bishop Gerald West-Phipps as the Presiding Bishop of KDCMF. Bishop West-Phipps began appointing executive, national, and other officers to assist in growing the fellowship. New bishops were consecrated including Bishop Jeremy L. Butler, Bishop Carrie Cox, and Bishop Owens F. Shepard. The fellowship experienced renewed growth and structure.'
-  },
-  {
-    year: '2018',
-    title: 'Continued Growth',
-    desc: 'New leadership additions strengthened the fellowship. Rev. Dr. Jon McReynolds was consecrated as 2nd Presiding Bishop. Mother Joyce Rufus was named Mother of the Fellowship. Libby Swoope became Sacred Arts Coordinator. The fellowship continued expanding its reach and membership.'
-  },
-  {
-    year: '2019',
-    title: 'Legal Incorporation',
-    desc: 'Kingdom Dominion Covenant Ministries Fellowship Inc. was formally incorporated in the State of New York under Article 10 of the Religious Corporation Law on October 25, 2019, with its principal office in Rochester, New York.'
-  },
-  {
-    year: 'Today',
-    title: 'Under New Leadership',
-    desc: 'Under the leadership of Bishop Owens F. Shepard as Presiding Bishop, KDCMF continues to grow as a Spirit-filled covenant body united in purpose. The fellowship has launched the Academy of Episcopal Studies, the Kingdom Dominion Institute, and a full suite of auxiliaries to serve every member of the body.'
-  },
-]
+const BISHOP_PHOTO = 'https://static.wixstatic.com/media/b47fa4_8ca4af2d17c04dd595fd2dafbb5fcd26~mv2.jpg'
+const SUCCESSION_LINEAGE = 'https://static.wixstatic.com/media/b47fa4_4a32fc449fd14e08945621755e8a2cd5~mv2.png'
 
 export default function AboutPage() {
   return (
     <PublicLayout>
-      {/* Hero */}
+
+      {/* ── HERO ── */}
       <section className="bg-crimson-gradient py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <div className="gold-bar mx-auto w-24 mb-6" />
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">About KDCMF</h1>
+          <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
+            About KDCMF
+          </h1>
           <p className="text-gray-200 font-body text-lg max-w-2xl mx-auto">
             A Spirit-filled covenant body united in purpose to advance the Kingdom of God.
           </p>
@@ -56,31 +24,46 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Who We Are */}
-      <section className="py-16 bg-white">
+      {/* ── WELCOME FROM THE PRESIDING BISHOP ── */}
+      <section className="py-16 bg-crimson-950">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="gold-bar w-12 mb-4" style={{ height: '3px' }} />
-              <h2 className="section-title mb-4">Who We Are</h2>
-              <p className="text-gray-600 font-body leading-relaxed mb-4">
-                Kingdom Dominion Covenant Ministries Fellowship Inc. (KDCMF) is a nonprofit religious corporation incorporated in the State of New York, with its principal office in Rochester, New York. The Fellowship was founded in 2006 and formally incorporated on October 25, 2019.
-              </p>
-              <p className="text-gray-600 font-body leading-relaxed mb-4">
-                We are a Spirit-filled covenant body of churches, pastors, leaders, and members united in purpose to advance the Kingdom of God. Founded on the strength of prayer, the sacrifice of faithful leaders, and the vision of covenant fellowship, KDCMF empowers every believer to serve with excellence and integrity.
-              </p>
-              <p className="text-gray-600 font-body leading-relaxed">
-                Under the leadership of Bishop Owens F. Shepard, Presiding Bishop, we continue to pursue our mission to unite in faith, spread the Good News of the Kingdom, and cultivate spiritual growth and transformation throughout our fellowship and beyond.
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            {/* Photo */}
+            <div className="flex flex-col items-center text-center">
+              <img
+                src={BISHOP_PHOTO}
+                alt="Bishop Owens F. Shepard"
+                className="w-72 h-auto rounded-2xl border border-gold-400/40 shadow-2xl object-cover"
+              />
+              <p className="text-gold-400 font-body font-semibold mt-4 text-sm">
+                Bishop Owens F. Shepard<br />
+                <span className="text-gray-400 font-normal">Presiding Bishop, KDCMF</span>
               </p>
             </div>
-            <div className="flex justify-center">
-              <img src={KDCMF_SEAL} alt="KDCMF Seal" className="w-96 h-96 object-contain drop-shadow-xl" />
+            {/* Message */}
+            <div>
+              <div className="gold-bar w-12 mb-4" style={{ height: '3px' }} />
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-gold-400 mb-4">
+                Welcome to Kingdom Dominion Covenant Ministries Fellowship Inc.
+              </h2>
+              <p className="text-gray-200 font-body leading-relaxed mb-4">
+                Grace and peace in the name of our Lord Jesus Christ. We are a covenant body of Spirit-filled ministries committed to advancing the Kingdom, cultivating holiness, and empowering leaders for effective service.
+              </p>
+              <p className="text-gray-200 font-body leading-relaxed mb-4">
+                As you explore this site, you will find our mission, leadership, and resources designed to strengthen churches and serve communities.
+              </p>
+              <p className="text-gold-400 font-body italic mb-1">
+                "Building together in unity, holiness, and purpose."
+              </p>
+              <p className="text-gold-500 font-body font-semibold text-sm">
+                — Bishop Owens F. Shepard, Presiding Bishop
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Vision & Mission */}
+      {/* ── VISION & MISSION ── */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="grid md:grid-cols-2 gap-8">
@@ -106,7 +89,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Statement of Faith */}
+      {/* ── STATEMENT OF FAITH ── */}
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
@@ -121,48 +104,150 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Our History */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
+      {/* ── OUR HISTORY ── */}
+      <section className="py-16 bg-crimson-gradient relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: 'repeating-linear-gradient(45deg, #c9a84c 0, #c9a84c 1px, transparent 0, transparent 50%)',
+          backgroundSize: '20px 20px'
+        }} />
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10">
             <div className="gold-bar mx-auto w-24 mb-6" style={{ height: '3px' }} />
-            <h2 className="section-title mb-3">Our History</h2>
-            <p className="section-subtitle max-w-2xl mx-auto">
-              From a vision in 2006 to a growing covenant fellowship today — the story of Kingdom Dominion Covenant Ministries Fellowship.
-            </p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-3">Our History</h2>
           </div>
-
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-crimson-200 hidden md:block" />
-
-            <div className="space-y-8">
-              {TIMELINE.map((item) => (
-                <div key={item.year} className="relative flex gap-6 md:gap-8">
-                  {/* Year bubble */}
-                  <div className="flex-shrink-0 w-16 flex flex-col items-center">
-                    <div className={`w-16 h-16 rounded-full flex items-center justify-center font-display font-bold text-xs text-center leading-tight z-10 shadow-md ${
-                      item.year === 'Today'
-                        ? 'bg-crimson-gradient text-white'
-                        : 'bg-white border-2 border-crimson-300 text-crimson-800'
-                    }`}>
-                      {item.year}
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className={`flex-1 card p-6 mb-0 ${item.year === 'Today' ? 'border-crimson-200 bg-crimson-50' : ''}`}>
-                    <h3 className="font-display text-lg font-bold text-crimson-900 mb-2">{item.title}</h3>
-                    <p className="text-gray-600 font-body text-sm leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
+          <div className="bg-white rounded-2xl p-8 shadow-2xl border border-gold-300/30">
+            <div className="space-y-5 text-gray-700 font-body leading-relaxed">
+              <p>
+                In the fall of 2006, a group of visionary leaders gathered in Rochester, New York — Bishop Gerald West-Phipps, Bishop Benjamin G. Finney, Bishop Rufus McGee, Bishop David J. Singleton, Pastor Robert Livingston, Elder Marcus Hill, and Elder Jerome Livingston. Their shared mission was to create a fellowship that would support smaller churches, church plants, and mid-sized congregations and ministries often overlooked by larger national organizations.
+              </p>
+              <p>
+                The fellowship was the vision of Bishop West-Phipps, who worked alongside Bishop Finney, the first Presiding Bishop, and Bishop McGee, who served as First Assistant. Pastor Singleton was appointed Bishop Designate, with plans to become Adjutant Bishop. That same year, the inaugural <strong>Kingdom Dominion Covenant Ministries Fellowship Conference</strong> drew more than 200 attendees and featured instructors such as Bishop Will Compton and Bishop Ronald Hoston. Dr. James L. Cherry Sr. was honored as Bishop for his lasting influence on the founders and pastors across the region.
+              </p>
+              <p>
+                In the months that followed, the fellowship grew rapidly, hosting picnics, fellowship trips, and welcoming new members, including Pastor John Young and Pastor Shirley Roberts. By 2007, Bishop McGee had become Presiding Bishop, and Robert Livingston was elevated to the episcopacy. However, when Bishops West-Phipps and Singleton withdrew later that year, the organization entered a brief period of dormancy.
+              </p>
+              <p>
+                Renewal came in 2012 when Bishop West-Phipps began reorganizing the fellowship. New consecrations followed with Bishop Jerome Livingston as First Assistant Presiding Bishop in 2012, and Bishops Jeremy L. Butler and Carrie Cox in 2016, as the fellowship was officially reestablished under Bishop West-Phipps as Presiding Bishop. He appointed new executive and national officers, restoring momentum and unity. Among the emerging leaders were Bishop Robert L. Livingston, Bishop David Singleton, Bishop Jeremy L. Butler, Bishop Owens F. Shepard, Bishop Willie F. Davis, and Bishop Christopher Bryant.
+              </p>
+              <p>
+                In 2018, the fellowship entered a new era of growth and excellence. Rev. Dr. Jon McReynolds succeeded Bishop James L. Cherry Sr. as Pastor of Aenon Baptist Church and was consecrated as Second Presiding Bishop. Mother Joyce Rufus was named Mother of the Fellowship, and Libby Swoope became Sacred Arts Coordinator. That same year, the <strong>Refreshing Conference</strong> and <strong>Bishop's Annual Ball &amp; Reception</strong> were introduced, with Pastor Dwayne Jordan of Albuquerque, New Mexico, serving as the inaugural Gala speaker.
+              </p>
+              <p>
+                Kingdom Dominion Covenant Ministries Fellowship Inc. was formally incorporated in the State of New York on October 25, 2019, under Article 10 of the Religious Corporation Law, with its principal office in Rochester, New York.
+              </p>
+              <p className="text-crimson-700 font-semibold">
+                From its humble beginnings to its present impact, Kingdom Dominion Covenant Ministries Fellowship continues to honor its founding vision — to serve, strengthen, and uplift the local church with integrity, excellence, and covenant unity.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* What We Do */}
+      {/* ── FELLOWSHIP LEADERSHIP ── */}
+      <section className="py-16 bg-crimson-950">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10">
+            <div className="gold-bar mx-auto w-24 mb-6" style={{ height: '3px' }} />
+            <h2 className="font-display text-3xl font-bold text-gold-400 mb-2">Fellowship Leadership</h2>
+            <p className="text-gray-400 font-body">Guided by episcopal order, accountability, and unity across all jurisdictions.</p>
+          </div>
+
+          {/* Current Leadership */}
+          <div className="grid sm:grid-cols-2 gap-4 mb-8">
+            {[
+              { role: 'Presiding Bishop', name: 'Bishop Owens F. Shepard' },
+              { role: 'Chief Advisor to the Presider', name: 'Bishop Jonathan McReynolds' },
+            ].map(l => (
+              <div key={l.name} className="bg-white/5 border border-gold-400/30 rounded-xl p-5">
+                <div className="text-gold-400 font-body font-bold text-sm mb-1">{l.role}</div>
+                <div className="text-white font-body font-semibold">{l.name}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Executive Council */}
+          <h3 className="font-display text-xl font-bold text-gold-400 mb-4">Executive Council</h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            {[
+              { role: 'First Assistant Presiding Bishop', name: 'Bishop Marcus Hill' },
+              { role: 'Second Assistant Presiding Bishop', name: 'Bishop Charles Middleton, Jr.' },
+              { role: 'Third Assistant Presiding Bishop', name: 'Bishop Jerome Livingston' },
+              { role: 'Executive Bishop', name: 'Bishop Dan Butler' },
+              { role: 'General Treasurer', name: 'Pastor Shirley Roberts' },
+            ].map(l => (
+              <div key={l.name} className="bg-white/5 border border-gold-400/30 rounded-xl p-5">
+                <div className="text-gold-400 font-body font-bold text-sm mb-1">{l.role}</div>
+                <div className="text-white font-body font-semibold">{l.name}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Past Leaders */}
+          <h3 className="font-display text-xl font-bold text-gold-400 mb-4">Past Leaders</h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { role: 'Founder and Presider Emeritus', name: 'Bishop Gerald West Phipps' },
+              { role: 'Past Presider', name: 'Archbishop Benjamin Finney' },
+              { role: 'Past Presider', name: 'Bishop Rufus McGee' },
+              { role: 'Past Presider', name: 'Bishop Frederick K. Johnson' },
+            ].map(l => (
+              <div key={l.name} className="bg-white/5 border border-gold-400/20 rounded-xl p-5">
+                <div className="text-gold-400/80 font-body text-xs font-semibold mb-1">{l.role}</div>
+                <div className="text-gray-200 font-body font-semibold text-sm">{l.name}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <Link to="/leadership" className="btn-gold px-8 py-3">View Full Leadership Directory</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── APOSTOLIC SUCCESSION ── */}
+      <section className="py-16 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            <div className="card p-6 text-center">
+              <img
+                src={BISHOP_SEAL}
+                alt="Seal of the Bishop — Kingdom Dominion CMF"
+                className="w-64 h-auto mx-auto object-contain"
+              />
+              <p className="text-sm text-gray-500 font-body mt-3">
+                Seal of the Bishop · Kingdom Dominion Covenant Ministries Fellowship
+              </p>
+            </div>
+            <div>
+              <div className="gold-bar w-12 mb-4" style={{ height: '3px' }} />
+              <h2 className="section-title mb-4">Apostolic Succession</h2>
+              <p className="text-gray-600 font-body leading-relaxed">
+                At Kingdom Dominion Covenant Ministries Fellowship, we deeply value the sacred tradition of apostolic succession. Each bishop consecrated under our apostolic seal is genuinely ordained, possessing impeccable credentials that reflect our unwavering commitment to ecclesiastical integrity and the highest standards of spiritual leadership.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SUCCESSION LINEAGE ── */}
+      <section className="py-16 bg-amber-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8">
+            <div className="gold-bar mx-auto w-24 mb-6" style={{ height: '3px' }} />
+            <h2 className="section-title mb-2">Our Succession Lineage</h2>
+            <p className="text-gray-500 font-body">A visual overview of our episcopal lineage and consecrations.</p>
+          </div>
+          <div className="card p-4 shadow-xl">
+            <img
+              src={SUCCESSION_LINEAGE}
+              alt="Visual lineage of KDCMF apostolic succession"
+              className="w-full h-auto rounded-lg"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHAT WE DO ── */}
       <section className="py-16 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
@@ -199,14 +284,16 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ── CTA ── */}
       <section className="py-16 bg-crimson-gradient relative overflow-hidden">
         <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: 'repeating-linear-gradient(45deg, #c9a84c 0, #c9a84c 1px, transparent 0, transparent 50%)',
           backgroundSize: '20px 20px'
         }} />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <p className="text-gold-400 font-display text-lg font-semibold mb-2">Established 2006 · Incorporated 2019</p>
+          <p className="text-gold-400 font-display text-lg font-semibold mb-2">
+            Established 2006 · Incorporated 2019
+          </p>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
             United in Purpose. Building the Kingdom.
           </h2>
@@ -219,6 +306,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
     </PublicLayout>
   )
 }
