@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom'
 import PublicLayout from '../../components/public/PublicLayout'
 import { supabase } from '../../lib/supabase'
 import { GraduationCap, Clock } from 'lucide-react'
-
-const AES_LOGO = 'https://tkctcmpkbidbhjxaghkx.supabase.co/storage/v1/object/public/public-assets/AES_Logo.png'
+import { AES_LOGO } from '../../lib/logos'
 
 const CURRICULUM_LAYERS = [
   {

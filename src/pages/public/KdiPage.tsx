@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom'
 import PublicLayout from '../../components/public/PublicLayout'
 import { supabase } from '../../lib/supabase'
 import { BookOpen, Clock, Users } from 'lucide-react'
-
-const KDI_LOGO = 'https://tkctcmpkbidbhjxaghkx.supabase.co/storage/v1/object/public/public-assets/KDI_Logo.png'
+import { KDI_LOGO } from '../../lib/logos'
 
 const CERTIFICATES = [
   { name: 'Certificate of Biblical Foundations', audience: 'All members', hours: 32 },
