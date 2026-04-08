@@ -43,11 +43,16 @@ const AdminAuthCtx = createContext<AdminAuthContext | null>(null)
 const MemberAuthCtx = createContext<MemberAuthContext | null>(null)
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 async function callEdgeFunction(fnName: string, body: object) {
   const res = await fetch(`${SUPABASE_URL}/functions/v1/${fnName}`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', apikey: import.meta.env.VITE_SUPABASE_ANON_KEY },
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': ANON_KEY,
+      'Authorization': `Bearer ${ANON_KEY}`
+    },
     body: JSON.stringify(body)
   })
   return res.json()

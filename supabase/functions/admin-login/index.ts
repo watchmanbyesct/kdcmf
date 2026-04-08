@@ -11,22 +11,22 @@ Deno.serve(async (req) => {
 
   const supabase = createClient(
     Deno.env.get('SUPABASE_URL')!,
-    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
+    { auth: { autoRefreshToken: false, persistSession: false } }
   )
 
   try {
     const { action, email, password, token } = await req.json()
 
-    // CHECK EMAIL
     if (action === 'check_email') {
-      const { data: profile } = await supabase
+      const { data: profile, error } = await supabase
         .from('profiles')
         .select('id, first_name, last_name, role, photo_url')
-        .eq('email', email.toLowerCase())
+        .eq('email', email.toLowerCase().trim())
         .in('role', ['admin', 'staff'])
-        .single()
+        .maybeSingle()
 
-      if (!profile) return new Response(JSON.stringify({ exists: false }), {
+      if (error || !profile) return new Response(JSON.stringify({ exists: false }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       })
 
@@ -35,19 +35,25 @@ Deno.serve(async (req) => {
       })
     }
 
-    // LOGIN
     if (action === 'login') {
-      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({ email, password })
-      if (authError || !authData.user) return new Response(JSON.stringify({ error: 'Invalid credentials' }), {
-        status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      // Verify password using SQL function (avoids 403 from signInWithPassword)
+      const { data: passwordValid, error: verifyError } = await supabase.rpc('verify_user_password', {
+        user_email: email.toLowerCase().trim(),
+        user_password: password
       })
+
+      if (verifyError || !passwordValid) {
+        return new Response(JSON.stringify({ error: 'Invalid credentials' }), {
+          status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        })
+      }
 
       const { data: profile } = await supabase
         .from('profiles')
         .select('*')
-        .eq('user_id', authData.user.id)
+        .eq('email', email.toLowerCase().trim())
         .in('role', ['admin', 'staff'])
-        .single()
+        .maybeSingle()
 
       if (!profile) return new Response(JSON.stringify({ error: 'Access denied' }), {
         status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -67,14 +73,13 @@ Deno.serve(async (req) => {
       })
     }
 
-    // VALIDATE SESSION
     if (action === 'validate') {
       const { data: session } = await supabase
         .from('admin_sessions')
         .select('*, profile:profiles(*)')
         .eq('token', token)
         .gt('expires_at', new Date().toISOString())
-        .single()
+        .maybeSingle()
 
       if (!session) return new Response(JSON.stringify({ valid: false }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -85,7 +90,6 @@ Deno.serve(async (req) => {
       })
     }
 
-    // LOGOUT
     if (action === 'logout') {
       await supabase.from('admin_sessions').delete().eq('token', token)
       return new Response(JSON.stringify({ success: true }), {
