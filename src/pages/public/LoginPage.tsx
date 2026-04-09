@@ -63,11 +63,36 @@ export default function LoginPage() {
                 }
               </button>
             </form>
-            <div className="px-8 pb-6 text-center">
-              <p className="text-sm text-gray-500 font-body">
-                Not a member yet?{' '}
-                <Link to="/join" className="text-crimson-700 font-semibold hover:underline">Apply to join KDCMF</Link>
-              </p>
+            <div className="px-8 pb-6 space-y-3">
+              <div className="border-t border-gray-100 pt-4 text-center">
+                <p className="text-xs text-gray-400 font-body uppercase tracking-wider mb-3">Don't have an account?</p>
+                <div className="space-y-2">
+                  <Link to="/stay-connected"
+                    className="flex items-center justify-between w-full px-4 py-2.5 rounded-lg border border-gray-200 hover:border-crimson-300 hover:bg-crimson-50 transition-all group">
+                    <div className="text-left">
+                      <div className="text-sm font-semibold text-gray-800 group-hover:text-crimson-700 font-body">Stay Connected</div>
+                      <div className="text-xs text-gray-400 font-body">Get updates, news, and event announcements</div>
+                    </div>
+                    <span className="text-crimson-600 text-lg">→</span>
+                  </Link>
+                  <Link to="/join"
+                    className="flex items-center justify-between w-full px-4 py-2.5 rounded-lg border border-gray-200 hover:border-crimson-300 hover:bg-crimson-50 transition-all group">
+                    <div className="text-left">
+                      <div className="text-sm font-semibold text-gray-800 group-hover:text-crimson-700 font-body">Apply for Membership</div>
+                      <div className="text-xs text-gray-400 font-body">Join the fellowship as a pastor, church, or ministry</div>
+                    </div>
+                    <span className="text-crimson-600 text-lg">→</span>
+                  </Link>
+                  <Link to="/events"
+                    className="flex items-center justify-between w-full px-4 py-2.5 rounded-lg border border-gray-200 hover:border-crimson-300 hover:bg-crimson-50 transition-all group">
+                    <div className="text-left">
+                      <div className="text-sm font-semibold text-gray-800 group-hover:text-crimson-700 font-body">Register for an Event</div>
+                      <div className="text-xs text-gray-400 font-body">Attend without creating an account</div>
+                    </div>
+                    <span className="text-crimson-600 text-lg">→</span>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>

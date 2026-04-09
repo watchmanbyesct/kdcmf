@@ -14,6 +14,8 @@ import ContactPage from './pages/public/ContactPage'
 import JoinPage from './pages/public/JoinPage'
 import LoginPage from './pages/public/LoginPage'
 import RegisterPage from './pages/public/RegisterPage'
+import StayConnectedPage from './pages/public/StayConnectedPage'
+import EventRegisterPage from './pages/public/EventRegisterPage'
 
 // Admin
 import AdminLoginPage from './pages/admin/AdminLoginPage'
@@ -58,6 +60,8 @@ export default function App() {
         <Route path="/kingdom-dominion-institute" element={<KdiPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/join" element={<JoinPage />} />
+        <Route path="/stay-connected" element={<StayConnectedPage />} />
+        <Route path="/events/:id/register" element={<EventRegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/admin/login" element={<AdminLoginPage />} />

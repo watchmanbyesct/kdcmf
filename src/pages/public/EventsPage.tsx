@@ -114,8 +114,8 @@ export default function EventsPage() {
                                   <span className="inline-flex items-center gap-2 text-sm font-body font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-4 py-2 rounded-full">
                                     🔔 Registration Opening Soon
                                   </span>
-                                ) : evt.registration_required ? (
-                                  <Link to="/login" className="btn-primary text-sm py-2 px-5 flex items-center gap-1.5">
+                                ) : (evt.status === 'open' || evt.status === 'upcoming') && evt.registration_required ? (
+                                  <Link to={`/events/${evt.id}/register`} className="btn-primary text-sm py-2 px-5 flex items-center gap-1.5">
                                     Register Now <ChevronRight size={14} />
                                   </Link>
                                 ) : null}
