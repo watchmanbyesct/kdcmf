@@ -35,14 +35,23 @@ export default function PublicHeader() {
     <header className="bg-crimson-900 shadow-lg sticky top-0 z-50">
       <div className="crimson-bar" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between min-h-[4.5rem] py-2 sm:min-h-[4.75rem]">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <img
-              src={KDCMF_SEAL}
-              alt="KDCMF Seal"
-              className="w-10 h-10 rounded-full object-cover flex-shrink-0"
-            />
+            {/* Explicit box sizing so img preflight (height:auto) cannot shrink the seal */}
+            <span
+              className="rounded-full overflow-hidden flex-shrink-0"
+              style={{ width: 60, height: 60, minWidth: 60, minHeight: 60 }}
+            >
+              <img
+                src={KDCMF_SEAL}
+                alt="KDCMF Seal"
+                width={60}
+                height={60}
+                className="block h-full w-full rounded-full object-cover max-w-none"
+                decoding="async"
+              />
+            </span>
             <div className="hidden sm:block">
               <div className="font-display font-bold text-white text-sm leading-tight">Kingdom Dominion</div>
               <div className="text-gold-400 text-xs font-body">Covenant Ministries Fellowship</div>

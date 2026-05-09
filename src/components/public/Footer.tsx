@@ -10,7 +10,19 @@ export default function PublicFooter() {
           {/* Brand */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-3 mb-4">
-              <img src={KDCMF_SEAL} alt="KDCMF Seal" className="w-12 h-12 rounded-full object-cover flex-shrink-0" />
+              <span
+                className="rounded-full overflow-hidden flex-shrink-0 inline-block align-middle"
+                style={{ width: 72, height: 72, minWidth: 72, minHeight: 72 }}
+              >
+                <img
+                  src={KDCMF_SEAL}
+                  alt="KDCMF Seal"
+                  width={72}
+                  height={72}
+                  className="block h-full w-full rounded-full object-cover max-w-none"
+                  decoding="async"
+                />
+              </span>
               <div>
                 <div className="font-display font-bold text-white text-sm">Kingdom Dominion</div>
                 <div className="text-gold-400 text-xs">Covenant Ministries Fellowship</div>

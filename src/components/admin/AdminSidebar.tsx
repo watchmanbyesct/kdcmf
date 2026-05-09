@@ -60,7 +60,19 @@ export default function AdminSidebar() {
       {/* Logo */}
       <div className="p-4 border-b border-white/10">
         <div className="flex items-center gap-3">
-          <img src={KDCMF_SEAL} alt="KDCMF" className="w-9 h-9 rounded-full object-cover flex-shrink-0 border border-gold-400/40" />
+          <span
+            className="rounded-full overflow-hidden flex-shrink-0 border border-gold-400/40"
+            style={{ width: 54, height: 54, minWidth: 54, minHeight: 54 }}
+          >
+            <img
+              src={KDCMF_SEAL}
+              alt="KDCMF"
+              width={54}
+              height={54}
+              className="block h-full w-full rounded-full object-cover max-w-none"
+              decoding="async"
+            />
+          </span>
           {!collapsed && (
             <div>
               <div className="font-display font-bold text-white text-sm leading-tight">KDCMF</div>
@@ -145,7 +157,19 @@ export default function AdminSidebar() {
       {/* Mobile Header */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-crimson-950 border-b border-white/10 px-4 h-14 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <img src={KDCMF_SEAL} alt="KDCMF" className="w-7 h-7 rounded-full object-cover border border-gold-400/40" />
+          <span
+            className="rounded-full overflow-hidden flex-shrink-0 border border-gold-400/40"
+            style={{ width: 42, height: 42, minWidth: 42, minHeight: 42 }}
+          >
+            <img
+              src={KDCMF_SEAL}
+              alt="KDCMF"
+              width={42}
+              height={42}
+              className="block h-full w-full rounded-full object-cover max-w-none"
+              decoding="async"
+            />
+          </span>
           <span className="font-display text-white font-bold text-sm">KDCMF Admin</span>
         </div>
         <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white p-1">
